@@ -1,50 +1,53 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django import models
 from django.db import connection
 from django.http import HttpResponse
-from .forms import ParentRegistrationForm, UserLoginForm
+from django.contrib.auth.models import Users
+from django.contrib import messages
+from .forms import RegisterForm
 
 # Create your views here.
 def index(request):
     return render(request,'app/landing.html')
 
-def parentloginregister(request):
-    if request.method == 'POST':
-        # Create a form instance and populate it with data from the request (binding):
-        form = ParentRegistrationForm(request.POST)
+def loginuser(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username = username, password = password)
+        if user is not None:
+            login(request, user)
+            return render(request,'app/home.html')
+        else:
+            return render(request, "app/landing.html/#parent", {"message": "Incorrect username or password!"})
+    return render(request, "app/login.html")
 
-        # Check if the form is valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
-           
-            return render(request, 'app/parentloginregister.html')
+def logoutuser(request):
+    logout(request)
+    user = None
+    return render(request, "app/landing.html", {"message": "You have been logged out"})
 
-    # If this is a GET (or any other method) create the default form.
-    else:
-        
-        userregister_form = ParentRegistrationForm
-        userlogin_form = UserLoginForm
 
-    return render(request, 'app/parentloginregister.html',{'userregister_form': userregister_form, 'userlogin_form':userlogin_form})
+def parentregister(request):
+    if request.method == "POST:
+        email = request.POST['email']
+        nric = request.POST['nric']
+        pass1  = request.POST['password']
+        pass2 = request.POST['confirm_password']
+        dob = request.POST['date_of_birth']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        role = 'parent'
+        myuser = User.objects.create(email, nric, pass1, dob, first_name, last_name, role)
+        myuser.save()
+    
+    return render(request, "/parentloginregister.html")
 
-# def index(request):
-#     """Shows the main page"""
 
-#     ## Delete customer
-#     if request.POST:
-#         if request.POST['action'] == 'delete':
-#             with connection.cursor() as cursor:
-#                 cursor.execute("DELETE FROM customers WHERE customerid = %s", [request.POST['id']])
 
-#     ## Use raw query to get all objects
-#     with connection.cursor() as cursor:
-#         cursor.execute("SELECT * FROM customers ORDER BY customerid")
-#         customers = cursor.fetchall()
 
-#     result_dict = {'records': customers}
 
-#     return render(request,'app/index.html',result_dict)
-
-# Create your views here.
 def view(request, id):
     """Shows the main page"""
     
@@ -73,7 +76,7 @@ def add(request):
                 ##TODO: date validation
                 cursor.execute("INSERT INTO customers VALUES (%s, %s, %s, %s, %s, %s, %s)"
                         , [request.POST['first_name'], request.POST['last_name'], request.POST['email'],
-                           request.POST['dob'] , request.POST['since'], request.POST['customerid'], request.POST['country'] ])
+                           request.POST['nric'] , request.POST['password'], request.POST['dob'], request.POST['role'] ])
                 return redirect('index')    
             else:
                 status = 'Customer with ID %s already exists' % (request.POST['customerid'])

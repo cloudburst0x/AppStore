@@ -126,6 +126,7 @@
 									</div>
 									<div class="field half">
 										{{ userregister_form.password.label}}
+										<input type="text" name="pass1" placeholder="password">
 										{% if userregister_form.password.errors %}  
 											{{ userregister_form.password }}
 											<div class="invalid-feedback">
@@ -139,6 +140,7 @@
 									</div>
 									<div class="field half">
 										{{ userregister_form.confirm_password.label}}
+										<input type="text" name="pass2" placeholder="confirm password">
 										{% if userregister_form.confirm_password.errors %} 
 											{{ userregister_form.confirm_password }}
 											<div class="invalid-feedback">
