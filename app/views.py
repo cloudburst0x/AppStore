@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django import models
 from django.db import connection
 from django.http import HttpResponse
-from django.contrib.auth.models import Users
+from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import RegisterForm
 
@@ -30,7 +30,7 @@ def logoutuser(request):
 
 
 def parentregister(request):
-    if request.method == "POST:
+    if request.method == "POST":
         email = request.POST['email']
         nric = request.POST['nric']
         pass1  = request.POST['password']

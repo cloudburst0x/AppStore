@@ -97,7 +97,7 @@
 								<div class="fields">
 									<div class="field half">
 										{{ userregister_form.email.label }}
-										<input type="text" name="email" placeholder="E-mail">
+
 										{% if userregister_form.email.errors %}  
 											{{ userregister_form.email}}
 											<div class="invalid-feedback">
@@ -112,7 +112,7 @@
 
 									<div class="field half">
 										{{ userregister_form.nric.label}}
-										<input type="text" name="nric" placeholder="nric">
+
 										{% if userregister_form.nric.errors %}  
 											{{ userregister_form.nric }}
 											<div class="invalid-feedback">
@@ -126,7 +126,7 @@
 									</div>
 									<div class="field half">
 										{{ userregister_form.password.label}}
-										<input type="text" name="pass1" placeholder="password">
+
 										{% if userregister_form.password.errors %}  
 											{{ userregister_form.password }}
 											<div class="invalid-feedback">
@@ -140,7 +140,7 @@
 									</div>
 									<div class="field half">
 										{{ userregister_form.confirm_password.label}}
-										<input type="text" name="pass2" placeholder="confirm password">
+
 										{% if userregister_form.confirm_password.errors %} 
 											{{ userregister_form.confirm_password }}
 											<div class="invalid-feedback">
