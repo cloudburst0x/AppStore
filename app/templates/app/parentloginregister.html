@@ -97,7 +97,7 @@
 								<div class="fields">
 									<div class="field half">
 										{{ userregister_form.email.label }}
-
+										<input type="text" name="email" placeholder="E-mail">
 										{% if userregister_form.email.errors %}  
 											{{ userregister_form.email}}
 											<div class="invalid-feedback">
@@ -112,6 +112,7 @@
 
 									<div class="field half">
 										{{ userregister_form.nric.label}}
+										<input type="text" name="nric" placeholder="nric">
 										{% if userregister_form.nric.errors %}  
 											{{ userregister_form.nric }}
 											<div class="invalid-feedback">
