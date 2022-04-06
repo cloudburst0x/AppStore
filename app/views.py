@@ -8,20 +8,21 @@ from django.contrib import messages
 
 
 # Create your views here.
-def index(request):
+def landing(request):
     return render(request,'app/landing.html')
 
 def loginuser(request):
     if request.method == "POST":
-        username = request.POST["username"]
+        email = request.POST["email"]
         password = request.POST["password"]
-        user = authenticate(request, username = username, password = password)
+        user = authenticate(request, email = email, password = password)
         if user is not None:
             login(request, user)
-            return render(request,'app/home.html')
+            first_name = user.first_name
+            return render(request,'app/parenthome.html', {'first_name':first_name})
         else:
-            return render(request, "app/landing.html/#parent", {"message": "Incorrect username or password!"})
-    return render(request, "app/login.html")
+            return render(request, "app/parentloginregister.html", {"message": "Incorrect username or password!"})
+    return render(request, "app/parentloginregister.html.html")
 
 def logoutuser(request):
     logout(request)

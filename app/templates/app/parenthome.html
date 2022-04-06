@@ -1,7 +1,9 @@
 {% load static %}
 <html>
 <body>
-    <h2>Customers in the App Store</h2>
+    {% if user.is_authenticated %}
+    <h2> Hello {{first_name}}</h2>
+    <h4> What would you like to do today? </h4>
     <img src="{% static 'app/images/nus.jpg' %}" width="10%"   alt="NUS logo"/><br/>
     <a href="add">New customer</a>
     <br/><br/>
