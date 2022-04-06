@@ -21,7 +21,6 @@ import app.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('app/', include('app.urls')),
     path('parent', app.views.parentregister, name='Parents Portal'),
     path('', app.views.index, name='index'),
     path('add', app.views.add, name='add'),
