@@ -9,7 +9,7 @@ from django.contrib import messages
 
 # Create your views here.
 def index(request):
-    return render(request,'landing.html')
+    return render(request,'app/landing.html')
 
 def loginuser(request):
     if request.method == "POST":
