@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django import models
+from django.db import models
 from django.db import connection
 from django.http import HttpResponse
 from django.contrib.auth.models import User
@@ -33,16 +33,16 @@ def parentregister(request):
     if request.method == "POST":
         email = request.POST['email']
         nric = request.POST['nric']
-        pass1  = request.POST['password']
-        pass2 = request.POST['confirm_password']
+        password  = request.POST['password']
+        confirm_password = request.POST['confirm_password']
         dob = request.POST['date_of_birth']
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
         role = 'parent'
-        myuser = User.objects.create(email, nric, pass1, dob, first_name, last_name, role)
+        myuser = User.objects.create_user(email, nric, password, dob, first_name, last_name, role)
         myuser.save()
     
-    return render(request, "/parentloginregister.html")
+    return render(request, "app/parentloginregister.html")
 
 
 
