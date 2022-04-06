@@ -16,13 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-import app.views
 
+import app.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('app/', include('app.urls')),
+    path('parent', app.views.parentregister, name='Parents Portal'),
     path('', app.views.index, name='index'),
-    path('parent', app.views.parentloginregister, name='Parents Portal'),
     path('add', app.views.add, name='add'),
     path('view/<str:id>', app.views.view, name='view'),
     path('edit/<str:id>', app.views.edit, name='edit'),
