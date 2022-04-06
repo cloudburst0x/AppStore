@@ -5,7 +5,7 @@ from django.db import connection
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import RegisterForm
+
 
 # Create your views here.
 def index(request):
