@@ -45,7 +45,8 @@ def parentcreatejob(request):
         # Check if the form is valid:
         if createjob_form.is_valid():
             # process the data in form.cleaned_data as required (here we just write it to the model due_back field)     
-            current_user = request.user          
+            current_user = request.user
+            prev_job = jobs.objects.latest('')          
             job = jobs(user=current_user.id, start_date=createjob_form.cleaned_data['start_date'], 
                         start_time=createjob_form.cleaned_data['start_time'],
                         end_date=createjob_form.cleaned_data['end_date'],
@@ -91,47 +92,6 @@ def view(request, id):
     return render(request,'app/view.html',result_dict)
 
 #@login_required
-def parentmakeoffer(request):
-    if not request.user.is_authenticated:
-        return render(request, "app/parentloginregister.html", {"message": "Please login first!"})
-    if request.POST:
-        #Get user data
-        u = User.objects.get(username='email@email.com')
-        role = u.usersext.role
-        if role == 'babysitter':
-            return render(request, "app/parentloginregister.html", {"message": "Please login with a Parent Account to post jobs!" })
-        #Insert user post into jobs db
-        cursor.execute("INSERT INTO jobs VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-                        , u, [request.POST['start_date'], request.POST['start_time'], request.POST['end_date'],
-                           request.POST['end_time'] , request.POST['rate'], request.POST['expirience_req'], request.POST['job_requirement'] ])
-        return redirect('app/parentmakeoffer.html', {"message":"Job Created!"})       
-        #formresults = request.POST
-        #createjob = jobs(user=u, start_date=formresults['start_date'], start_time=formresults['start_time'], date=formresults['date'], time = formresults['time'], duration=formresults['duration'], price=formresults['price'], status = 'Available')
-        #createtask.save()
-        #return render(request, "task/home.html", {"message": "Task Created!"})
-    return render(request, "app/parentmakeoffer.html")
-    
-
-    if request.POST:
-        ## Check if customerid is already in the table (CHANGE TO JOBID)
-        with connection.cursor() as cursor:
-
-            cursor.execute("SELECT * FROM customers WHERE customerid = %s", [request.POST['jobid']])
-            customer = cursor.fetchone()
-            ## No customer with same id
-            if customer == None:
-                ##TODO: date validation
-                cursor.execute("INSERT INTO jobs VALUES (%s, %s, %s, %s, %s, %s, %s)"
-                        , [request.POST['start_date'], request.POST['start_time'], request.POST['end_date'],
-                           request.POST['end_time'] , request.POST['rate'], request.POST['expirience_req'], request.POST['job_requirement'] ])
-                return redirect('index')    
-            else: #FOR JOB ID
-                status = 'Customer with ID %s already exists' % (request.POST['jobid'])
-
- 
-    return render(request, "app/parentmakeoffer.html")
-
-
 def add(request):
     """Shows the main page"""
     context = {}

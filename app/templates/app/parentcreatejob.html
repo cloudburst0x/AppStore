@@ -4,34 +4,124 @@
     <a href="/">Back to home</a>
 
     <p style="color:red">{{ status|safe }}</p>
-    <!-- Create a Form -->
-    <form method="POST">
-        <!-- Security token by Django -->
-        {% csrf_token %}
-        <!-- form -->
-        <label for = "start_date">Start Date (yyyy-mm-dd)</label>
-        <input type = "date" name = "start_date" id = "id_start_date"><br>
-        <br>
-        <label for = "end_date"> End Date (yyyy-mm-dd) </label>
-        <input type = "date" name = "end_date" id = "id_end_date"><br>
-        <br>
-        <label for = "start_time"> Start Time </label>
-        <input type = "time" name = "start_time" id = "id_start_time"><br>
-        <br>
-        <label for = "end_time"> End Time </label>
-        <input type = "time" name = "end_time" id = "id_end_time"><br>
-        <br>
-        <label for = "start_time"> Rate (per hour) </label>
-        <input type = "text" name = "rate" id = "id_rate"><br>
-        <br>
-        <label for = "experience_req"> Experience of Babysitter Required (years) </label>
-        <input type = "text" name = "experience_req" id = "id_experience_req"><br>
-        <br>
-        <label for = "job_requirement"> Describe the job requirements (max 500 words)</label>
-        <input type = "job_requirement" name = "job_requirement" id = "id_job_requirement"><br>
-        
-        <button type="submit" value="Add">Add</button>
-    </form>
+    <!-- Create Job -->
+    <article id="create_job">
+        <h2 class="major">Create Job</h2>
+        <form method="POST" action="">
+            {% csrf_token  %}
+            <div class="fields">
+                <div class="field half">
+                    {{ createjob_form.start_date.label }}
+
+                    {% if createjob_form.start_date.errors %}  
+                        {{ createjob_form.start_date}}
+                        <div class="invalid-feedback">
+                            {% for error in createjob_form.start_date.errors %}
+                                <span>{{ error }}</span> 
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ createjob_form.start_date }}
+                    {% endif %}
+                </div>
+
+                <div class="field half">
+                    {{ createjob_form.start_time.label }}
+
+                    {% if createjob_form.start_time.errors %}  
+                        {{ createjob_form.start_time}}
+                        <div class="invalid-feedback">
+                            {% for error in createjob_form.start_time.errors %}
+                                <span>{{ error }}</span> 
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ createjob_form.start_time }}
+                    {% endif %}
+                </div>
+
+                <div class="field half">
+                    {{ createjob_form.end_date.label }}
+
+                    {% if createjob_form.end_date.errors %}  
+                        {{ createjob_form.end_date}}
+                        <div class="invalid-feedback">
+                            {% for error in createjob_form.end_date.errors %}
+                                <span>{{ error }}</span> 
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ createjob_form.end_date }}
+                    {% endif %}
+                </div>
+
+                <div class="field half">
+                    {{ createjob_form.end_time.label }}
+
+                    {% if createjob_form.end_time.errors %}  
+                        {{ createjob_form.end_time}}
+                        <div class="invalid-feedback">
+                            {% for error in createjob_form.end_time.errors %}
+                                <span>{{ error }}</span> 
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ createjob_form.end_time }}
+                    {% endif %}
+                </div>
+
+                <div class="field half">
+                    {{ createjob_form.rate.label }}
+
+                    {% if createjob_form.rate.errors %}  
+                        {{ createjob_form.rate}}
+                        <div class="invalid-feedback">
+                            {% for error in createjob_form.rate.errors %}
+                                <span>{{ error }}</span> 
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ createjob_form.rate }}
+                    {% endif %}
+                </div>
+
+                <div class="field half">
+                    {{ createjob_form.experience_req.label }}
+
+                    {% if createjob_form.experience_req.errors %}  
+                        {{ createjob_form.experience_req}}
+                        <div class="invalid-feedback">
+                            {% for error in createjob_form.experience_req.errors %}
+                                <span>{{ error }}</span> 
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ createjob_form.experience_req }}
+                    {% endif %}
+                </div>
+
+                <div class="field half">
+                    {{ createjob_form.job_requirement.label }}
+
+                    {% if createjob_form.job_requirement.errors %}  
+                        {{ createjob_form.job_requirement}}
+                        <div class="invalid-feedback">
+                            {% for error in createjob_form.job_requirement.errors %}
+                                <span>{{ error }}</span> 
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ createjob_form.job_requirement }}
+                    {% endif %}
+                </div>
+      
+            </div>
+            <ul class="actions">
+                <li><input type="submit" value=Submit></li>
+            </ul>
+
+        </form>
+    </article>
 </body>
 </html>
 
