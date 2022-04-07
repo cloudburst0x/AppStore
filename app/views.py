@@ -46,6 +46,8 @@ class JobsListView(ListView):
 
 class CreateJobs(CreateView):
     model = jobs
+    u = User.objects.get(username='email@email.com')
+    jobs.user = u
     fields = ['start_date','start_time','end_date','end_time','rate','experience_req','job_requirement']
 
 
@@ -73,8 +75,8 @@ def parentmakeoffer(request):
         if role == 'babysitter':
             return render(request, "app/parentloginregister.html", {"message": "Please login with a Parent Account to post jobs!" })
         #Insert user post into jobs db
-        cursor.execute("INSERT INTO jobs VALUES (%s, %s, %s, %s, %s, %s, %s)"
-                        , [request.POST['start_date'], request.POST['start_time'], request.POST['end_date'],
+        cursor.execute("INSERT INTO jobs VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+                        , u, [request.POST['start_date'], request.POST['start_time'], request.POST['end_date'],
                            request.POST['end_time'] , request.POST['rate'], request.POST['expirience_req'], request.POST['job_requirement'] ])
         return redirect('app/parentmakeoffer.html', {"message":"Job Created!"})       
         #formresults = request.POST
