@@ -16,9 +16,9 @@ class ParentRegistrationForm(forms.Form):
 class JobCreationForm(forms.Form):
     user = forms.CharField()
     start_date = forms.DateField(label='Start Date',widget=forms.SelectDateWidget(years=range(2022, 2023)))
-    start_time = forms.TimeField()
+    start_time = forms.CharField()
     end_date = forms.DateField(label='End Date',widget=forms.SelectDateWidget(years=range(2022, 2023)))
-    end_time = forms.TimeField()
+    end_time = forms.CharField()
     rate = forms.CharField(max_length = 5)
     experience_req = forms.CharField(max_length = 3)
     job_requirement = forms.CharField(max_length = 500)
