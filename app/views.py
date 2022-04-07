@@ -1,11 +1,14 @@
+from typing import List
 from django.shortcuts import render, redirect
 from django.db import connection
 from django.http import HttpResponse
 from .forms import ParentRegistrationForm, UserLoginForm
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .models import usersext
+from .models import jobs, usersext
 from django.contrib.auth.decorators import login_required
+from django.views.generic import (ListView, CreateView)
+
 # Create your views here.
 def index(request):
     return render(request,'app/landing.html')
@@ -33,6 +36,17 @@ def parentloginregister(request):
         userlogin_form = UserLoginForm
 
     return render(request, 'app/parentloginregister.html',{'userregister_form': userregister_form, 'userlogin_form':userlogin_form})
+
+class JobsListView(ListView):
+    model = jobs
+    template_name = '/jobs.html'
+    context_object_name = 'jobs'
+    ordering = ['-date_posted'] #from newest to oldest
+
+class CreateJobs(CreateView):
+    model = jobs
+    fields = ['start_date','start_time','end_date','end_time','rate','experience_req','job_requirement']
+
 
 # def index(request):
 #     """Shows the main page"""

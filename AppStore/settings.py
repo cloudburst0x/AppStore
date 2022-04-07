@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'app',
 ]
 
@@ -150,6 +151,8 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
-LOGIN_URL = 'parent'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+#LOGIN_URL = 'parent' #for @login_required module
 
 django_heroku.settings(locals())

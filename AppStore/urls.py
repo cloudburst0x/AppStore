@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+
 import app.views
 
 
@@ -28,4 +29,6 @@ urlpatterns = [
     path('parentmakeoffer', app.views.parentmakeoffer, name='parentmakeoffer'),
     path('view/<str:id>', app.views.view, name='view'),
     path('edit/<str:id>', app.views.edit, name='edit'),
+    path('jobs', app.views.JobsListView.as_view(), name = 'Jobs Portal'), #HTML Name: <app>_list.html
+    path('job/new/', app.views.CreateJobs.as_view(), name = 'Create Jobs Form') #HTML Name: <app>_form.html
 ]
