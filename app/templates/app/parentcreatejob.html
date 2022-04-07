@@ -2,7 +2,11 @@
 <body>
     <h2>Add New Job</h2>
     <a href="/">Back to home</a>
-
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
     <p style="color:red">{{ status|safe }}</p>
     <!-- Create Job -->
     <article id="create_job">

@@ -45,16 +45,16 @@ def parentcreatejob(request):
         # Check if the form is valid:
         if createjob_form.is_valid():
             # process the data in form.cleaned_data as required (here we just write it to the model due_back field)     
-            current_user = request.user
-            prev_job = jobs.objects.latest('')          
-            job = jobs(user=current_user.id, start_date=createjob_form.cleaned_data['start_date'], 
+            current_user = request.user        
+            new_job = jobs(user=current_user.id, 
+                        start_date=createjob_form.cleaned_data['start_date'], 
                         start_time=createjob_form.cleaned_data['start_time'],
                         end_date=createjob_form.cleaned_data['end_date'],
                         end_time=createjob_form.cleaned_data['end_time'],
                         rate=createjob_form.cleaned_data['rate'],
                         experience_req=createjob_form.cleaned_data['experience_req'],
                         job_requirement=createjob_form.cleaned_data['job_requirement'])
-            job.save()
+            new_job.save()
             messages.info(request, 'Your job creation is successful! Eligible nannies can now see the job you created')
             return redirect('app/parentcreatejob.html')
     # If this is a GET (or any other method) create the default form.
@@ -62,6 +62,8 @@ def parentcreatejob(request):
         createjob_form = JobCreationForm
         
     return render(request, 'app/parentcreatejob.html',{'createjob_form': createjob_form})
+
+
 
 
 
