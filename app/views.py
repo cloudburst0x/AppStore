@@ -64,7 +64,7 @@ def view(request, id):
 
     return render(request,'app/view.html',result_dict)
 
-@login_required
+#@login_required
 def parentmakeoffer(request):
     """Shows the main page"""
     context = {}
@@ -88,9 +88,8 @@ def parentmakeoffer(request):
             else: #FOR JOB ID
                 status = 'Customer with ID %s already exists' % (request.POST['jobid'])
 
-    context['status'] = status
  
-    return render(request, "app/parentmakeoffer.html", context)
+    return render(request, "app/parentmakeoffer.html")
 
 
 def add(request):
