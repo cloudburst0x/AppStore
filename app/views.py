@@ -5,7 +5,7 @@ from .forms import ParentRegistrationForm, UserLoginForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from .models import usersext
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def index(request):
     return render(request,'app/landing.html')
@@ -64,14 +64,44 @@ def view(request, id):
 
     return render(request,'app/view.html',result_dict)
 
-# Create your views here.
+@login_required
+def parentmakeoffer(request):
+    """Shows the main page"""
+    context = {}
+    status = ''
+    #Authenticate User
+    ##################
+
+    if request.POST:
+        ## Check if customerid is already in the table (CHANGE TO JOBID)
+        with connection.cursor() as cursor:
+
+            cursor.execute("SELECT * FROM customers WHERE customerid = %s", [request.POST['jobid']])
+            customer = cursor.fetchone()
+            ## No customer with same id
+            if customer == None:
+                ##TODO: date validation
+                cursor.execute("INSERT INTO jobs VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                        , [request.POST['start_date'], request.POST['start_time'], request.POST['end_date'],
+                           request.POST['end_time'] , request.POST['rate'], request.POST['expirience_req'], request.POST['job_requirement'] ])
+                return redirect('index')    
+            else: #FOR JOB ID
+                status = 'Customer with ID %s already exists' % (request.POST['jobid'])
+
+    context['status'] = status
+ 
+    return render(request, "app/parentmakeoffer.html", context)
+
+
 def add(request):
     """Shows the main page"""
     context = {}
     status = ''
+    #Authenticate User
+    ##################
 
     if request.POST:
-        ## Check if customerid is already in the table
+        ## Check if customerid is already in the table (CHANGE TO JOBID)
         with connection.cursor() as cursor:
 
             cursor.execute("SELECT * FROM customers WHERE customerid = %s", [request.POST['customerid']])
@@ -79,17 +109,18 @@ def add(request):
             ## No customer with same id
             if customer == None:
                 ##TODO: date validation
-                cursor.execute("INSERT INTO customers VALUES (%s, %s, %s, %s, %s, %s, %s)"
-                        , [request.POST['first_name'], request.POST['last_name'], request.POST['email'],
-                           request.POST['dob'] , request.POST['since'], request.POST['customerid'], request.POST['country'] ])
+                cursor.execute("INSERT INTO jobs VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                        , [request.POST['start_date'], request.POST['start_time'], request.POST['end_date'],
+                           request.POST['end_time'] , request.POST['rate'], request.POST['expirience_req'], request.POST['job_requirement'] ])
                 return redirect('index')    
-            else:
+            else: #FOR JOB ID
                 status = 'Customer with ID %s already exists' % (request.POST['customerid'])
 
 
     context['status'] = status
  
     return render(request, "app/add.html", context)
+
 
 # Create your views here.
 def edit(request, id):

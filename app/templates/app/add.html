@@ -1,6 +1,6 @@
 <html>
 <body>
-    <h2>Add New Customer</h2>
+    <h2>Add New Job</h2>
     <a href="/">Back to home</a>
 
     <p style="color:red">{{ status|safe }}</p>
@@ -10,13 +10,13 @@
         {% csrf_token %}
         <!-- form -->
         <div id="div_id_first_name" class="control-group"> <label for="id_first_name" class="control-label requiredField">
-        First name<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="first_name" maxlength="64" class="textinput textInput" required="" id="id_first_name"> </div> </div> <div id="div_id_last_name" class="control-group"> <label for="id_last_name" class="control-label requiredField">
-        Last name<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="last_name" maxlength="64" class="textinput textInput" required="" id="id_last_name"> </div> </div> <div id="div_id_email" class="control-group"> <label for="id_email" class="control-label requiredField">
-        Email<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="email" maxlength="64" class="textinput textInput" required="" id="id_email"> </div> </div> <div id="div_id_dob" class="control-group"> <label for="id_dob" class="control-label requiredField">
-        Date of birth (yyyy-mm-dd)<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="dob" class="dateinput" required="" id="id_dob"> </div> </div> <div id="div_id_since" class="control-group"> <label for="id_since" class="control-label requiredField">
-        Since (yyyy-mm-dd)<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="since" class="dateinput" required="" id="id_since"> </div> </div> <div id="div_id_customerid" class="control-group"> <label for="id_customerid" class="control-label requiredField">
-        Customerid<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="customerid" maxlength="16" class="textinput textInput" required="" id="id_customerid"> </div> </div> <div id="div_id_country" class="control-group"> <label for="id_country" class="control-label requiredField">
-        Country<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="country" maxlength="16" class="textinput textInput" required="" id="id_country"> </div> </div>
+        Start Date (yyyy-mm-dd)<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="start_date" maxlength="64" class="dateinput" required="" id="id_start_date"> </div> </div> <div id="div_id_last_name" class="control-group"> <label for="id_last_name" class="control-label requiredField">
+        Start Time<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="start_time" maxlength="64" class="textinput textInput" required="" id="id_start_time"> </div> </div> <div id="div_id_email" class="control-group"> <label for="id_email" class="control-label requiredField">
+        End Date (yyyy-mm-dd)<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="end_date" maxlength="64" class="textinput textInput" required="" id="id_email"> </div> </div> <div id="div_id_dob" class="control-group"> <label for="id_dob" class="control-label requiredField">
+        End Time<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="dob" class="dateinput" required="" id="id_dob"> </div> </div> <div id="div_id_since" class="control-group"> <label for="id_since" class="control-label requiredField">
+        Rate (per hour) <span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="since" class="dateinput" required="" id="id_since"> </div> </div> <div id="div_id_customerid" class="control-group"> <label for="id_customerid" class="control-label requiredField">
+        Experience of Babysitter Required (years)<span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="customerid" maxlength="16" class="textinput textInput" required="" id="id_customerid"> </div> </div> <div id="div_id_country" class="control-group"> <label for="id_country" class="control-label requiredField">
+        Job Requirements <span class="asteriskField">*</span> </label> <div class="controls"> <input type="text" name="job_requirement" maxlength="500" class="textinput textInput" required="" id="id_job_requirement"> </div> </div>
 
         <br>
         <button type="submit" value="Add">Add</button>
