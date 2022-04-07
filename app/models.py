@@ -12,7 +12,7 @@ class usersext(models.Model):
     role = models.CharField(max_length=16)
 
 class jobs(models.Model):
-    jobid = models.CharField(max_length=10, unique=True)
+    jobid = models.AutoField(primary_key=True)
     user = models.ForeignKey(usersext, on_delete=models.CASCADE)
     start_date = models.DateField()
     start_time = models.TimeField()

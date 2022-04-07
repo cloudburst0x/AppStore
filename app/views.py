@@ -5,8 +5,9 @@ from django.http import HttpResponse
 from .forms import ParentRegistrationForm, UserLoginForm
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 from .models import jobs, usersext
-from django.contrib.auth.decorators import login_required
+#from django.contrib.auth.decorators import login_required
 from django.views.generic import (ListView, CreateView)
 
 # Create your views here.
@@ -48,23 +49,6 @@ class CreateJobs(CreateView):
     fields = ['start_date','start_time','end_date','end_time','rate','experience_req','job_requirement']
 
 
-# def index(request):
-#     """Shows the main page"""
-
-#     ## Delete customer
-#     if request.POST:
-#         if request.POST['action'] == 'delete':
-#             with connection.cursor() as cursor:
-#                 cursor.execute("DELETE FROM customers WHERE customerid = %s", [request.POST['id']])
-
-#     ## Use raw query to get all objects
-#     with connection.cursor() as cursor:
-#         cursor.execute("SELECT * FROM customers ORDER BY customerid")
-#         customers = cursor.fetchall()
-
-#     result_dict = {'records': customers}
-
-#     return render(request,'app/index.html',result_dict)
 
 # Create your views here.
 def view(request, id):
@@ -80,11 +64,25 @@ def view(request, id):
 
 #@login_required
 def parentmakeoffer(request):
-    """Shows the main page"""
-    context = {}
-    status = ''
-    #Authenticate User
-    ##################
+    if not request.user.is_authenticated:
+        return render(request, "app/parentloginregister.html", {"message": "Please login first!"})
+    if request.POST:
+        #Get user data
+        u = User.objects.get(username='email@email.com')
+        role = u.usersext.role
+        if role == 'babysitter':
+            return render(request, "app/parentloginregister.html", {"message": "Please login with a Parent Account to post jobs!" })
+        #Insert user post into jobs db
+        cursor.execute("INSERT INTO jobs VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                        , [request.POST['start_date'], request.POST['start_time'], request.POST['end_date'],
+                           request.POST['end_time'] , request.POST['rate'], request.POST['expirience_req'], request.POST['job_requirement'] ])
+        return redirect('app/parentmakeoffer.html', {"message":"Job Created!"})       
+        #formresults = request.POST
+        #createjob = jobs(user=u, start_date=formresults['start_date'], start_time=formresults['start_time'], date=formresults['date'], time = formresults['time'], duration=formresults['duration'], price=formresults['price'], status = 'Available')
+        #createtask.save()
+        #return render(request, "task/home.html", {"message": "Task Created!"})
+    return render(request, "app/parentmakeoffer.html")
+    
 
     if request.POST:
         ## Check if customerid is already in the table (CHANGE TO JOBID)
