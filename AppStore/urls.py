@@ -29,6 +29,7 @@ urlpatterns = [
     path('parentmakeoffer', app.views.parentmakeoffer, name='parentmakeoffer'),
     path('view/<str:id>', app.views.view, name='view'),
     path('edit/<str:id>', app.views.edit, name='edit'),
-    path('jobs', app.views.JobsListView.as_view(), name = 'Jobs Portal'), #HTML Name: <app>_list.html
-    path('job/new/', app.views.CreateJobs.as_view(), name = 'Create Jobs Form') #HTML Name: <app>_form.html
+    path('parentcreatejob', app.views.parentcreatejob, name='parentcreatejob'),
+    #path('jobs', app.views.JobsListView.as_view(), name = 'Jobs Portal'), #HTML Name: <app>_list.html
+    #path('job/new/', app.views.CreateJobs.as_view(), name = 'Create Jobs Form') #HTML Name: <app>_form.html
 ]

@@ -1,0 +1,37 @@
+<html>
+<body>
+    <h2>Add New Job</h2>
+    <a href="/">Back to home</a>
+
+    <p style="color:red">{{ status|safe }}</p>
+    <!-- Create a Form -->
+    <form method="POST">
+        <!-- Security token by Django -->
+        {% csrf_token %}
+        <!-- form -->
+        <label for = "start_date">Start Date (yyyy-mm-dd)</label>
+        <input type = "date" name = "start_date" id = "id_start_date"><br>
+        <br>
+        <label for = "end_date"> End Date (yyyy-mm-dd) </label>
+        <input type = "date" name = "end_date" id = "id_end_date"><br>
+        <br>
+        <label for = "start_time"> Start Time </label>
+        <input type = "time" name = "start_time" id = "id_start_time"><br>
+        <br>
+        <label for = "end_time"> End Time </label>
+        <input type = "time" name = "end_time" id = "id_end_time"><br>
+        <br>
+        <label for = "start_time"> Rate (per hour) </label>
+        <input type = "text" name = "rate" id = "id_rate"><br>
+        <br>
+        <label for = "experience_req"> Experience of Babysitter Required (years) </label>
+        <input type = "text" name = "experience_req" id = "id_experience_req"><br>
+        <br>
+        <label for = "job_requirement"> Describe the job requirements (max 500 words)</label>
+        <input type = "job_requirement" name = "job_requirement" id = "id_job_requirement"><br>
+        
+        <button type="submit" value="Add">Add</button>
+    </form>
+</body>
+</html>
+

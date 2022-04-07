@@ -13,7 +13,15 @@ class ParentRegistrationForm(forms.Form):
     first_name = forms.CharField(max_length = 200)
     last_name = forms.CharField(max_length = 200)
     
-
+class JobCreationForm(forms.Form):
+    user = forms.CharField(label='Email', max_length=100)
+    start_date = forms.DateField(label='Start Date',widget=forms.SelectDateWidget(years=range(2022, 2023)))
+    start_time = forms.TimeField()
+    end_date = forms.DateField(label='End Date',widget=forms.SelectDateWidget(years=range(2022, 2023)))
+    end_time = forms.TimeField()
+    rate = forms.CharField(max_length = 5)
+    experience_req = forms.CharField(max_length = 3)
+    job_requirement = forms.CharField(max_length = 500)
 
 
     

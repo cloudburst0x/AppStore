@@ -2,7 +2,7 @@ from typing import List
 from django.shortcuts import render, redirect
 from django.db import connection
 from django.http import HttpResponse
-from .forms import ParentRegistrationForm, UserLoginForm
+from .forms import ParentRegistrationForm, UserLoginForm, JobCreationForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -38,17 +38,43 @@ def parentloginregister(request):
 
     return render(request, 'app/parentloginregister.html',{'userregister_form': userregister_form, 'userlogin_form':userlogin_form})
 
-class JobsListView(ListView):
-    model = jobs
-    template_name = '/jobs.html'
-    context_object_name = 'jobs'
-    ordering = ['-date_posted'] #from newest to oldest
+def parentcreatejob(request):
+    if request.method == 'POST':
+        # Create a form instance and populate it with data from the request (binding):
+        createjob_form = JobCreationForm(request.POST)
+        # Check if the form is valid:
+        if createjob_form.is_valid():
+            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)     
+            u = User.objects.get(username='email@email.com')            
+            job = jobs(user=u, start_date=createjob_form.cleaned_data['start_date'], 
+                        start_time=createjob_form.cleaned_data['start_time'],
+                        end_date=createjob_form.cleaned_data['end_date'],
+                        end_time=createjob_form.cleaned_data['end_time'],
+                        rate=createjob_form.cleaned_data['rate'],
+                        experience_req=createjob_form.cleaned_data['experience_req'],
+                        job_requirement=createjob_form.cleaned_data['job_requirement'])
+            job.save()
+            messages.info(request, 'Your job creation is successful! Eligible nannies can now see the job you created')
+            return redirect('app/parentcreatejob.html')
+    # If this is a GET (or any other method) create the default form.
+    else:
+        createjob_form = JobCreationForm
+        
+    return render(request, 'app/parentcreatejob.html',{'createjob_form': createjob_form})
 
-class CreateJobs(CreateView):
-    model = jobs
-    u = User.objects.get(username='email@email.com')
-    jobs.user = u
-    fields = ['start_date','start_time','end_date','end_time','rate','experience_req','job_requirement']
+
+
+#class JobsListView(ListView):
+#    model = jobs
+#    template_name = '/jobs.html'
+#    context_object_name = 'jobs'
+#    ordering = ['-date_posted'] #from newest to oldest
+
+#class CreateJobs(CreateView):
+#    model = jobs
+#    #u = User.objects.get(username='email@email.com')
+#    #jobs.user = u
+#    fields = ['start_date','start_time','end_date','end_time','rate','experience_req','job_requirement']
 
 
 
