@@ -45,8 +45,8 @@ def parentcreatejob(request):
         # Check if the form is valid:
         if createjob_form.is_valid():
             # process the data in form.cleaned_data as required (here we just write it to the model due_back field)     
-            u = User.objects.get(username='email@email.com')            
-            job = jobs(user=u, start_date=createjob_form.cleaned_data['start_date'], 
+            current_user = request.user          
+            job = jobs(user=current_user.id, start_date=createjob_form.cleaned_data['start_date'], 
                         start_time=createjob_form.cleaned_data['start_time'],
                         end_date=createjob_form.cleaned_data['end_date'],
                         end_time=createjob_form.cleaned_data['end_time'],
